@@ -41,10 +41,40 @@ class ComparisonTest extends AbstractNodeTest
 
    public function testDefault()
    {
-       $comparison = new Comparison(Field::get("a"), Comparison::EQ, Value::get(10));
-       $this->assertSame(Field::get("a"), $comparison->getField());
+       $field = Field::get("a");
+       $value = Value::get(10);
+
+       $comparison = new Comparison($field, Comparison::EQ, $value);
+
+       $this->assertSame($field, $comparison->getField());
        $this->assertSame(Comparison::EQ, $comparison->getOperator());
-       $this->assertSame(Value::get(10), $comparison->getValue());
+       $this->assertSame($value, $comparison->getValue());
+   }
+
+   public function testSetField()
+   {
+       $a = Field::get("a");
+       $b = Field::get("n");
+
+       $comparison = new Comparison($a, Comparison::EQ, Value::get(10));
+
+       $this->assertSame($a, $comparison->getField());
+
+       $comparison->setField($b);
+       $this->assertSame($b, $comparison->getField());
+   }
+
+   public function testSetValue()
+   {
+       $a = Value::get("a");
+       $b = Value::get("b");
+
+       $comparison = new Comparison(Field::get("a"), Comparison::EQ, $a);
+
+       $this->assertSame($a, $comparison->getValue());
+
+       $comparison->setValue($b);
+       $this->assertSame($b, $comparison->getValue());
    }
 
    /**
