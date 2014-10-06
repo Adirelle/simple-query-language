@@ -23,8 +23,6 @@ use Adirelle\SimpleQueryLanguage\Node\Field;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Description of NodeTest
- *
  * @author Adirelle <adirelle@gmail.com>
  */
 class FieldTest extends AbstractNodeTest

@@ -24,7 +24,7 @@ namespace Adirelle\SimpleQueryLanguage\Node;
  *
  * @author Adirelle <adirelle@gmail.com>
  */
-abstract class AbstractFieldTest extends AbstractNode
+abstract class AbstractFieldTest extends AbstractNode implements Expression
 {
     /**
      *

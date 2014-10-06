@@ -20,7 +20,7 @@
 namespace Adirelle\SimpleQueryLanguage\Visitor;
 
 use Adirelle\SimpleQueryLanguage\Node\Comparison;
-use Adirelle\SimpleQueryLanguage\Node\Expression;
+use Adirelle\SimpleQueryLanguage\Node\CompositeExpression;
 use Adirelle\SimpleQueryLanguage\Node\Field;
 use Adirelle\SimpleQueryLanguage\Node\InRange;
 use Adirelle\SimpleQueryLanguage\Node\InSet;
@@ -84,10 +84,10 @@ interface VisitorInterface
 
     /**
      *
-     * @param Expression $expression
+     * @param CompositeExpression $expression
      * @param VisitorContextInterface $context
      * @return mixed
      */
-    public function visitExpression(Expression $expression, VisitorContextInterface $context);
+    public function visitCompositeExpression(CompositeExpression $expression, VisitorContextInterface $context);
 
 }

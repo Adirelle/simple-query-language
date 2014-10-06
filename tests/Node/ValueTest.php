@@ -20,12 +20,9 @@
 namespace Adirelle\SimpleQueryLanguage\Tests\Node;
 
 use Adirelle\SimpleQueryLanguage\Node\Value;
-use PHPUnit_Framework_TestCase;
 use stdClass;
 
 /**
- * Description of NodeTest
- *
  * @author Adirelle <adirelle@gmail.com>
  */
 class ValueTest extends AbstractNodeTest

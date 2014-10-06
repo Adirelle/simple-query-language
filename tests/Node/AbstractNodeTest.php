@@ -21,12 +21,10 @@ namespace Adirelle\SimpleQueryLanguage\Tests\Node;
 
 use Adirelle\SimpleQueryLanguage\Node\AbstractNode;
 use Adirelle\SimpleQueryLanguage\Node\NodeInterface;
+use Exception;
 use PHPUnit_Framework_TestCase;
-use Zend\Stdlib\Exception\RuntimeException;
 
 /**
- * Description of NodeTest
- *
  * @author Adirelle <adirelle@gmail.com>
  */
 class AbstractNodeTest extends PHPUnit_Framework_TestCase
@@ -76,7 +74,7 @@ class AbstractNodeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Exception
      * @expectedExceptionMessage FOOBAR
      */
     public function testAcceptException()
@@ -96,7 +94,7 @@ class AbstractNodeTest extends PHPUnit_Framework_TestCase
                 $this->identicalTo($visitor),
                 $this->identicalTo($context)
             )
-            ->willThrowException(new \Exception("FOOBAR"));
+            ->willThrowException(new Exception("FOOBAR"));
 
         $context->expects($this->once())->method('push')->with($this->identicalTo($node));
         $context->expects($this->once())->method('pop');

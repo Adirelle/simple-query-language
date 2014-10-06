@@ -25,65 +25,63 @@ use Adirelle\SimpleQueryLanguage\Node\Field;
 use Adirelle\SimpleQueryLanguage\Node\Value;
 
 /**
- * Description of NodeTest
- *
  * @author Adirelle <adirelle@gmail.com>
  */
 class ComparisonTest extends AbstractNodeTest
 {
-   public function testOperatorsAreValid()
-   {
-       foreach(Comparison::getOperators() as $operator) {
-           $this->assertTrue(Comparison::isValidOperator($operator));
-       }
-       $this->assertFalse(Comparison::isValidOperator("foo"));
-   }
+    public function testOperatorsAreValid()
+    {
+        foreach(Comparison::getOperators() as $operator) {
+            $this->assertTrue(Comparison::isValidOperator($operator));
+        }
+        $this->assertFalse(Comparison::isValidOperator("foo"));
+    }
 
-   public function testDefault()
-   {
-       $field = Field::get("a");
-       $value = Value::get(10);
+    public function testDefault()
+    {
+        $field = Field::get("a");
+        $value = Value::get(10);
 
-       $comparison = new Comparison($field, Comparison::EQ, $value);
+        $comparison = new Comparison($field, Comparison::EQ, $value);
 
-       $this->assertSame($field, $comparison->getField());
-       $this->assertSame(Comparison::EQ, $comparison->getOperator());
-       $this->assertSame($value, $comparison->getValue());
-   }
+        $this->assertSame($field, $comparison->getField());
+        $this->assertSame(Comparison::EQ, $comparison->getOperator());
+        $this->assertSame($value, $comparison->getValue());
+    }
 
-   public function testSetField()
-   {
-       $a = Field::get("a");
-       $b = Field::get("n");
+    public function testSetField()
+    {
+        $a = Field::get("a");
+        $b = Field::get("n");
 
-       $comparison = new Comparison($a, Comparison::EQ, Value::get(10));
+        $comparison = new Comparison($a, Comparison::EQ, Value::get(10));
 
-       $this->assertSame($a, $comparison->getField());
+        $this->assertSame($a, $comparison->getField());
 
-       $comparison->setField($b);
-       $this->assertSame($b, $comparison->getField());
-   }
+        $comparison->setField($b);
+        $this->assertSame($b, $comparison->getField());
+    }
 
-   public function testSetValue()
-   {
-       $a = Value::get("a");
-       $b = Value::get("b");
+    public function testSetValue()
+    {
+        $a = Value::get("a");
+        $b = Value::get("b");
 
-       $comparison = new Comparison(Field::get("a"), Comparison::EQ, $a);
+        $comparison = new Comparison(Field::get("a"), Comparison::EQ, $a);
 
-       $this->assertSame($a, $comparison->getValue());
+        $this->assertSame($a, $comparison->getValue());
 
-       $comparison->setValue($b);
-       $this->assertSame($b, $comparison->getValue());
-   }
+        $comparison->setValue($b);
+        $this->assertSame($b, $comparison->getValue());
+    }
 
-   /**
-    * @expectedException InvalidArgumentException
-    */
-   public function testError()
-   {
-       new Comparison(Field::get("a"), "foo", Value::get(10));
-   }
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testError()
+    {
+        new Comparison(Field::get("a"), "foo", Value::get(10));
+    }
 
     public function testAccept()
     {

@@ -61,7 +61,7 @@ class InSet extends AbstractFieldTest
      * @return InSet
      * @throws InvalidArgumentException
      */
-    public function setLowerBound(array $values)
+    public function setValues(array $values)
     {
         $this->values = $values;
         return $this;
