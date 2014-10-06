@@ -66,7 +66,18 @@ class Value extends AbstractNode
      */
     public function __toString()
     {
-        return (string)$this->value;
+        switch(gettype($this->value)) {
+            case 'double':
+                return sprintf("%g", $this->value);
+            case 'integer':
+                return sprintf("%d", $this->value);
+            case 'string':
+                if(preg_match('/["\s]/', $this->value)) {
+                    return sprintf('"%s"', str_replace('"', '\\"', $this->value));
+                }
+                return $this->value;
+        }
+        return sprintf("%s(%s)", gettype($this->value), $this->value);
     }
 
     /**
@@ -82,12 +93,13 @@ class Value extends AbstractNode
      */
     static public function get($value)
     {
-        if(!is_scalar($value)) {
-            throw new InvalidArgumentException(sprintf("Field name must be a scalar, not a(n) %s", gettype($value)));
+        if(!is_string($value) && !is_numeric($value)) {
+            throw new InvalidArgumentException(sprintf("Field name must be a string or a number, not a(n) %s", gettype($value)));
         }
-        if(isset(self::$instances[$value])) {
-            return self::$instances[$value];
+        $key = serialize($value);
+        if(isset(self::$instances[$key])) {
+            return self::$instances[$key];
         }
-        return self::$instances[$value] = new self($value);
+        return self::$instances[$key] = new self($value);
     }
 }

@@ -69,4 +69,9 @@ class FieldTest extends AbstractNodeTest
     {
         $this->doTestAccept(Field::get('a'), 'visitField');
     }
+
+    public function testToString()
+    {
+        $this->assertEquals("a", Field::get('a'));
+    }
 }

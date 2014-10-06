@@ -70,4 +70,48 @@ class ValueTest extends AbstractNodeTest
     {
         $this->doTestAccept(Value::get('a'), 'visitValue');
     }
+
+    /**
+     * @dataProvider getInstanceValues
+     */
+    public function testInstanceMap($a, $b)
+    {
+        if($a === $b) {
+            $this->assertSame(Value::get($a), Value::get($b), "$a === $b");
+        } else {
+            $this->assertNotSame(Value::get($a), Value::get($b), "$a !== $b");
+        }
+    }
+
+    public function getInstanceValues()
+    {
+        return [
+            [ 0, 0 ],
+            [ 0, "0" ],
+            [ 5, "5.1" ],
+            [ 5.1, "5.1" ],
+            [ 5.1, 5 ],
+            [ 1, "-1" ],
+        ];
+    }
+
+    /**
+     * @dataProvider getStringValues
+     */
+    public function testToString($repr, $value)
+    {
+        $this->assertSame($repr, (string)Value::get($value));
+    }
+
+    public function getStringValues()
+    {
+        return [
+            ['0', 0],
+            ['5', 5],
+            ['5.1', 5.1],
+            ['aaa', 'aaa'],
+            ['"foo bar"', 'foo bar'],
+            ['"foo\\"bar"', 'foo"bar'],
+        ];
+    }
 }
