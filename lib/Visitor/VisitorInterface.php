@@ -26,6 +26,7 @@ use Adirelle\SimpleQueryLanguage\Node\InRange;
 use Adirelle\SimpleQueryLanguage\Node\InSet;
 use Adirelle\SimpleQueryLanguage\Node\NodeInterface;
 use Adirelle\SimpleQueryLanguage\Node\Value;
+use Adirelle\SimpleQueryLanguage\Visitor\VisitorContextInterface;
 
 /** A syntax tree visitor.
  *
