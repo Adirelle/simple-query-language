@@ -88,4 +88,21 @@ class ComparisonTest extends AbstractNodeTest
         $this->doTestAccept(new Comparison(Field::get("a"), Comparison::EQ, Value::get(10)), 'visitComparison');
     }
 
+    public function testToString()
+    {
+        $field = $this->getMockBuilder('Adirelle\SimpleQueryLanguage\Node\Field')
+            ->disableOriginalConstructor()
+            ->setMethods(['__toString'])
+            ->getMock();
+
+        $value = $this->getMockBuilder('Adirelle\SimpleQueryLanguage\Node\Value')
+            ->disableOriginalConstructor()
+            ->setMethods(['__toString'])
+            ->getMock();
+
+        $field->expects($this->once())->method('__toString')->willReturn("field");
+        $value->expects($this->once())->method('__toString')->willReturn("10");
+
+        $this->assertSame('field = 10', (string)(new Comparison($field, Comparison::EQ, $value)));
+    }
 }

@@ -19,8 +19,6 @@
 
 namespace Adirelle\SimpleQueryLanguage\Tests\Node;
 
-use Adirelle\SimpleQueryLanguage\Exception\InvalidArgumentException;
-use Adirelle\SimpleQueryLanguage\Node\Comparison;
 use Adirelle\SimpleQueryLanguage\Node\Field;
 use Adirelle\SimpleQueryLanguage\Node\InRange;
 use Adirelle\SimpleQueryLanguage\Node\Value;
@@ -69,6 +67,26 @@ class InRangeTest extends AbstractNodeTest
 
         $inRange->setUpperBound($b);
         $this->assertSame($b, $inRange->getUpperBound());
+    }
+
+    public function testToString()
+    {
+        $field = $this->getMockBuilder('Adirelle\SimpleQueryLanguage\Node\Field')
+            ->disableOriginalConstructor()
+            ->setMethods(['__toString'])
+            ->getMock();
+
+        $valueBuilder = $this->getMockBuilder('Adirelle\SimpleQueryLanguage\Node\Value')
+            ->disableOriginalConstructor()
+            ->setMethods(['__toString']);
+        $lower = $valueBuilder->getMock();
+        $upper = $valueBuilder->getMock();
+
+        $field->expects($this->once())->method('__toString')->willReturn("field");
+        $lower->expects($this->once())->method('__toString')->willReturn("10");
+        $upper->expects($this->once())->method('__toString')->willReturn("20");
+
+        $this->assertSame('field:[10 TO 20]', (string)(new InRange($field, $lower, $upper)));
     }
 
     public function testAccept()

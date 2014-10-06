@@ -85,4 +85,15 @@ class CompositeExpressionTest extends AbstractNodeTest
         $this->doTestAccept($this->expr, 'visitCompositeExpression');
     }
 
+    public function testToString()
+    {
+        $exprBuilder = $this->getMockBuilder('\Adirelle\SimpleQueryLanguage\Node\Expression')->setMethods(['__toString']);
+        $a = $exprBuilder->getMock();
+        $b = $exprBuilder->getMock();
+
+        $a->expects($this->once())->method('__toString')->willReturn("a");
+        $b->expects($this->once())->method('__toString')->willReturn("b");
+
+        $this->assertSame('(a AND b)', (string)(new CompositeExpression(CompositeExpression::CONNECTOR_AND, [$a, $b])));
+    }
 }

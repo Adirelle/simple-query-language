@@ -59,4 +59,23 @@ class InSetTest extends AbstractNodeTest
         $this->doTestAccept(new InSet(Field::get("a"), [Value::get(10), Value::get(15)]), 'visitInSet');
     }
 
+    public function testToString()
+    {
+        $field = $this->getMockBuilder('Adirelle\SimpleQueryLanguage\Node\Field')
+            ->disableOriginalConstructor()
+            ->setMethods(['__toString'])
+            ->getMock();
+
+        $valueBuilder = $this->getMockBuilder('Adirelle\SimpleQueryLanguage\Node\Value')
+            ->disableOriginalConstructor()
+            ->setMethods(['__toString']);
+        $a = $valueBuilder->getMock();
+        $b = $valueBuilder->getMock();
+
+        $field->expects($this->once())->method('__toString')->willReturn("field");
+        $a->expects($this->once())->method('__toString')->willReturn("10");
+        $b->expects($this->once())->method('__toString')->willReturn("20");
+
+        $this->assertSame('field:[10, 20]', (string)(new InSet($field, [$a, $b])));
+    }
 }
