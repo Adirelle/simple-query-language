@@ -49,11 +49,6 @@ class SyntaxError extends RuntimeException implements Exception
      */
     public function __construct($message, $input = '', $position = 0)
     {
-        if($message instanceof TokenIteratorInterface) {
-            $position = $message->getCursor();
-            $input = $message->getInput();
-            $message = "Syntax error";
-        }
         if($input && $position) {
             parent::__construct(
                 sprintf(
