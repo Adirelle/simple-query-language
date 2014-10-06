@@ -22,6 +22,7 @@ namespace Adirelle\SimpleQueryLanguage\Tests\Node;
 use Adirelle\SimpleQueryLanguage\Node\AbstractNode;
 use Adirelle\SimpleQueryLanguage\Node\NodeInterface;
 use PHPUnit_Framework_TestCase;
+use Zend\Stdlib\Exception\RuntimeException;
 
 /**
  * Description of NodeTest
@@ -67,6 +68,35 @@ class AbstractNodeTest extends PHPUnit_Framework_TestCase
                 $this->identicalTo($visitor),
                 $this->identicalTo($context)
             );
+
+        $context->expects($this->once())->method('push')->with($this->identicalTo($node));
+        $context->expects($this->once())->method('pop');
+
+        $node->accept($visitor, $context);
+    }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage FOOBAR
+     */
+    public function testAcceptException()
+    {
+        $visitor = $this->getMock('\Adirelle\SimpleQueryLanguage\Visitor\VisitorInterface');
+        $context = $this->getMock('\Adirelle\SimpleQueryLanguage\Visitor\VisitorContextInterface');
+
+        /* @var $node AbstractNode */
+        $node = $this->getMockBuilder('\Adirelle\SimpleQueryLanguage\Node\AbstractNode')
+            ->setMethods(['doAccept'])
+            ->getMockForAbstractClass();
+
+        $node
+            ->expects($this->once())
+            ->method('doAccept')
+            ->with(
+                $this->identicalTo($visitor),
+                $this->identicalTo($context)
+            )
+            ->willThrowException(new \Exception("FOOBAR"));
 
         $context->expects($this->once())->method('push')->with($this->identicalTo($node));
         $context->expects($this->once())->method('pop');
