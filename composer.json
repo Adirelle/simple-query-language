@@ -1,0 +1,31 @@
+{
+    "name": "adirelle/simple-query-language",
+    "description": "A simple query language.",
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "Adirelle",
+            "email": "adirelle@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "doctrine/common": "~2.4",
+        "doctrine/orm": "~2.4",
+        "zendframework/zend-ldap": "~2.3",
+        "phpunit/phpunit": "~4.3"
+    },
+    "autoload": {
+        "psr-4": { "Adirelle\\SimpleQueryLanguage\\": "lib/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Adirelle\\SimpleQueryLanguage\\Tests\\": "tests/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
