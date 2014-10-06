@@ -5,6 +5,12 @@ php:
     - 5.4
     - 5.6
 
-before_script: composer update --prefer-dist --dev
+before_script:
+    - composer install --prefer-source --dev
+    - mkdir -p build/logs
 
-script: ./vendor/bin/phpunit
+script:
+    - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+    - ./vendor/bin/coveralls -v
