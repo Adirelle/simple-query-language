@@ -32,10 +32,10 @@ interface LexerInterface
     const KEYWORD     = "keyword";
     const PUNCTUATION = "punctuation";
 
-    /** Analyse the given stream and returns a stream of tokens.
+    /** Analyse the given stream and returns an iterator of tokens.
      *
      * @param string $input
-     * @return TokenIteratorInterface
+     * @return Iterator
      */
     public function tokenize($input);
 }
